@@ -1,0 +1,216 @@
+/**
+Theme Name: UCN Theme
+Author: Brendan Musick
+Text Domain: ucn-theme
+Description: Theme developed for various types of projects.
+Version: 1.0.0
+License: GNU
+**/
+
+/****************************************
+    Styling to make footer stick to bottom of screen
+*****************************************/
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.wp-site-blocks {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.site-footer {
+    flex-shrink: 0;
+}
+
+
+
+
+
+.custom-search-form {
+    width: 90%;
+    max-width: 800px;
+}
+
+.custom-search-form .input-group {
+  border-radius: 999px;
+  background-color: #ffffff;
+}
+
+.custom-search-form input.form-control:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.custom-search-form .btn {
+    display: flex;
+    align-items: center;
+  justify-content: center;
+}
+
+
+
+/**
+ Utility menu styling (top and bottom text menus)
+**/
+
+.utility-menu > ul {
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: right;
+  gap: 1.5rem;
+}
+
+.utility-menu > ul > li > a {
+  /* Remove text styling from utility menu */
+  text-decoration: none;
+  color: inherit;
+}
+
+.utility-menu ul {
+  /* Remove padding and margin below the list */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Header search dropdown animation */
+#search-dropdown {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  position: relative;
+  z-index: 10000;
+}
+
+.input-group {
+    width: 70%;
+    justify-self: center;
+}
+/* Ensure the close button stays clickable above everything */
+#search-dropdown .close-search {
+  position: absolute;
+  top: .5rem;
+  right: .75rem;
+  z-index: 10001;
+}
+#search-dropdown.expanded {
+  max-height: 2000px; /* Adjust as needed */
+  opacity: 1;
+}
+
+/* Style radio buttons of search bar */
+/* Custom purple radio button */
+input[type="radio"].custom-radio:checked {
+  background-color: #7c2aa8;  /* Your purple color */
+  border-color: #7c2aa8;
+}
+
+/* Optional: Smooth circle fill animation */
+input[type="radio"].custom-radio {
+  accent-color: #7c2aa8; /* Modern browsers */
+}
+
+.search-form-menus-container {
+    justify-content: center;
+}
+
+/* Search form menus */
+.search-form-menu {
+  color: white;
+  padding: 2em;    
+}
+.search-form-menu ul {
+  list-style: none;        /* Removes bullets */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-form-menu ul li {
+  display: inline-block;   /* Optional: makes menu horizontal */
+  margin-right: 15px;      /* Optional: space between items */
+}
+
+.search-form-menu ul li a {
+  text-decoration: none;   /* Removes underline */
+  color: white;         
+}
+
+.search-form-menu ul li a:hover {
+  text-decoration: underline; /* Optional: add hover effect */
+  color: #f0f0f0;             /* Optional: lighter white on hover */
+}
+
+.has-primary-light-background-color {
+  background-color: #5E93E6;
+  color: #fff;
+}
+
+
+/**
+SEARCH Page
+**/
+.custom-search-card {
+  display: flex;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease-in-out;
+  min-height: 150px;
+}
+
+.custom-search-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.custom-search-card-image {
+  flex: 0 0 150px;
+  max-width: 150px;
+  overflow: hidden;
+}
+
+.custom-search-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.custom-search-card-content {
+  flex: 1;
+}
+
+@media (max-width: 576px) {
+  .custom-search-card {
+    flex-direction: column;
+  }
+
+  .custom-search-card-image {
+    max-width: 100%;
+    flex: none;
+    height: 180px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  main.container .row {
+    flex-direction: column-reverse;
+  }
+  main.container aside {
+    order: 2;
+  }
+  main.container section {
+    order: 1;
+  }
+}

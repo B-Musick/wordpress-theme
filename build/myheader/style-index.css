@@ -1,0 +1,167 @@
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/myheader/style.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-musicks-myheader {
+  background-color: #21759b;
+  color: #fff;
+  padding: 2px;
+}
+.top-logo-bar {
+  padding: 0.1em;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+#menu-top-menu {
+  justify-content: end;
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+/* Style for the main navigation */
+.main-navigation {
+  background-color: rgb(48, 109, 178); /* or any background */
+}
+/* Top level menu */
+.main-navigation .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* horizontal */
+  gap: 20px; /* space between menu items */
+}
+/* Top level menu items */
+.main-navigation .menu > li {
+  position: relative; /* needed for submenu positioning */
+}
+/* Top level links */
+.main-navigation .menu > li > a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 15px;
+  display: block;
+}
+/* Submenu */
+.main-navigation .menu ul {
+  display: none; /* hide by default */
+  position: absolute;
+  top: 100%; /* directly underneath the parent */
+  left: 0;
+  list-style: none;
+  background: #fff;
+  padding: 10px 0;
+  margin: 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  z-index: 9999;
+}
+/* Submenu items */
+.main-navigation .menu ul li {
+  width: 100%;
+}
+/* Submenu links */
+.main-navigation .menu ul li a {
+  padding: 10px 15px;
+  color: #333;
+  display: block;
+}
+.sign-in-dropdown {
+  z-index: 100000;
+}
+/* Show submenu on hover */
+.main-navigation .menu > li:hover > ul {
+  display: block;
+}
+/* Optional: hover effects */
+.main-navigation .menu > li > a:hover,
+.main-navigation .menu ul li a:hover {
+  background-color: #eee;
+  height: 100%;
+}
+.dropdown-bottom-items {
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+}
+.dropdown-bottom-items li > a {
+  color: #444 !important;
+}
+@media (max-width: 768px) {
+  .md-w-100 {
+    width: 100% !important;
+  }
+  #menu-top-menu {
+    gap: 0.1rem;
+  }
+}
+.hamburger-line {
+  width: 30px;
+  height: 2px;
+  background-color: white;
+  margin: 6px 0;
+}
+/*****
+Custom dropdown hamburger style (bootstrap classes)
+*****/
+/* Top-level menu items */
+.main-navigation .nav-link {
+  color: white;
+}
+/* Active and hover states */
+.main-navigation .nav-link:hover,
+.main-navigation .nav-link.active {
+  color: #ddd !important;
+}
+/* Dropdown items */
+.main-navigation .dropdown-menu {
+  background-color: #21759b; /* or same as your navbar */
+}
+.main-navigation .dropdown-item {
+  color: white !important;
+  padding: 10px 20px;
+}
+.dropdown-item:hover {
+  background-color: #21759b;
+  border-radius: 5px;
+  color: #444 !important;
+}
+.dropdown-menu {
+  padding: 0 !important;
+}
+.container-fluid {
+  padding: 0px;
+}
+.depth_0 {
+  background-color: #21759b;
+  padding: 0;
+}
+/* Make Bootstrap's hamburger icon white */
+.navbar-toggler {
+  border: none !important;
+  box-shadow: none; /* in case Bootstrap adds focus outline */
+  padding: 0.25rem; /* optional: tighter spacing */
+  background: transparent; /* remove background on click */
+}
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3em;
+  color: #444;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.navbar {
+  padding-bottom: 0 !important;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

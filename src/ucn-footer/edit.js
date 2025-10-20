@@ -1,38 +1,82 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from "@wordpress/i18n";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import { PanelBody, TextControl, Button } from "@wordpress/components";
+import { Fragment } from "@wordpress/element";
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from "@wordpress/block-editor";
+export default function Edit({ attributes, setAttributes }) {
+	const { menus = [] } = attributes;
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import "./editor.scss";
+	const updateMenu = (index, field, value) => {
+		const newMenus = [...menus];
+		newMenus[index][field] = value;
+		setAttributes({ menus: newMenus });
+	};
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-export default function Edit() {
+	const addMenu = () => {
+		setAttributes({
+			menus: [...menus, { label: "New Menu", themeLocation: "" }],
+		});
+	};
+
+	const removeMenu = (index) => {
+		const newMenus = [...menus];
+		newMenus.splice(index, 1);
+		setAttributes({ menus: newMenus });
+	};
+
 	return (
-		<footer {...useBlockProps()}>
-			<div>This is the footer</div>
-		</footer>
+		<Fragment>
+			<InspectorControls>
+				<PanelBody title={__("Footer Menus", "ucn-theme")} initialOpen={true}>
+					{menus.map((menu, index) => (
+						<div
+							key={index}
+							style={{
+								borderBottom: "1px solid #ddd",
+								paddingBottom: "10px",
+								marginBottom: "10px",
+							}}
+						>
+							<TextControl
+								label={__("Menu Label", "ucn-theme")}
+								value={menu.label}
+								onChange={(value) => updateMenu(index, "label", value)}
+							/>
+							<TextControl
+								label={__("Theme Location", "ucn-theme")}
+								value={menu.themeLocation}
+								onChange={(value) => updateMenu(index, "themeLocation", value)}
+								placeholder="e.g. footer-admissions"
+							/>
+							<Button
+								isDestructive
+								isSecondary
+								onClick={() => removeMenu(index)}
+							>
+								{__("Remove Menu", "ucn-theme")}
+							</Button>
+						</div>
+					))}
+
+					<Button isPrimary onClick={addMenu}>
+						{__("Add Menu", "ucn-theme")}
+					</Button>
+				</PanelBody>
+			</InspectorControls>
+
+			<div {...useBlockProps()}>
+				<p>
+					<strong>{__("Footer Preview", "ucn-theme")}</strong>
+				</p>
+				<ul>
+					{menus.map((menu, index) => (
+						<li key={index}>
+							{menu.label} (
+							{menu.themeLocation || __("no location", "ucn-theme")})
+						</li>
+					))}
+				</ul>
+			</div>
+		</Fragment>
 	);
 }

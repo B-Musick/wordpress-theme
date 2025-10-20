@@ -9,13 +9,25 @@
  *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
+$top_menu_full   = $attributes['topMenuFull'] ?? '';
+$top_menu_mobile = $attributes['topMenuMobile'] ?? '';
+$main_menu       = $attributes['mainMenu'] ?? '';
+
+$icons = [
+  'Twitter'   => 'dashicons-twitter',
+  'Facebook'  => 'dashicons-facebook',
+  'Instagram' => 'dashicons-instagram',
+  'LinkedIn'  => 'dashicons-linkedin',
+  'YouTube'   => 'dashicons-video-alt3',
+];
+
 ?>
 
 
 <div class="top-logo-bar">
         <?php
             wp_nav_menu(array(
-                'theme_location' => 'header-top-menu',
+                'theme_location' => $top_menu_full,
                 'container' => false,
                 'menu_class' => 'sign-in-dropdown',
                 'fallback_cb' => '__return_false',
@@ -75,7 +87,7 @@
             <div class="collapse navbar-collapse" id="main-menu">
             <?php
             wp_nav_menu(array(
-                'theme_location' => 'top-menu',
+                'theme_location' => $top_menu_mobile,
                 'container' => false,
                 'menu_class' => '',
                 'fallback_cb' => '__return_false',
@@ -86,7 +98,7 @@
             ?>
                   <?php
             wp_nav_menu(array(
-                'theme_location' => 'dropdown-bottom-menu',
+                'theme_location' => $main_menu,
                 'container' => false,
                 'menu_class' => 'dropdown-bottom-items',
                 'fallback_cb' => '__return_false',

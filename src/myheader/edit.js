@@ -1,38 +1,50 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import { PanelBody, TextControl } from "@wordpress/components";
+import { Fragment } from "@wordpress/element";
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
+export default function Edit({ attributes, setAttributes }) {
+	const { topMenuFull, topMenuMobile, mainMenu } = attributes;
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.scss';
-
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'My Header – hello from the editor!', 'myheader' ) }
-		</p>
+		<Fragment>
+			<InspectorControls>
+				<PanelBody
+					title={__("Header Menu Settings", "myheader")}
+					initialOpen={true}
+				>
+					<TextControl
+						label={__("Top Menu (Full)", "myheader")}
+						value={topMenuFull}
+						onChange={(value) => setAttributes({ topMenuFull: value })}
+						placeholder="e.g. top-menu-full"
+					/>
+					<TextControl
+						label={__("Top Menu (Mobile)", "myheader")}
+						value={topMenuMobile}
+						onChange={(value) => setAttributes({ topMenuMobile: value })}
+						placeholder="e.g. top-menu-mobile"
+					/>
+					<TextControl
+						label={__("Main Menu", "myheader")}
+						value={mainMenu}
+						onChange={(value) => setAttributes({ mainMenu: value })}
+						placeholder="e.g. main-menu"
+					/>
+				</PanelBody>
+			</InspectorControls>
+
+			<p {...useBlockProps()}>
+				{__("My Header Block", "myheader")}
+				<br />
+				<small>
+					Top Menu (Full): {topMenuFull || "—"}
+					<br />
+					Top Menu (Mobile): {topMenuMobile || "—"}
+					<br />
+					Main Menu: {mainMenu || "—"}
+				</small>
+			</p>
+		</Fragment>
 	);
 }

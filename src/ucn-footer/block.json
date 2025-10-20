@@ -11,6 +11,15 @@
 	"supports": {
 		"html": false
 	},
+	"attributes": {
+		"menus": {
+			"type": "array",
+			"default": [
+				{ "label": "Admissions", "themeLocation": "footer-admissions" },
+				{ "label": "Community", "themeLocation": "footer-community" }
+			]
+		}
+	},
 	"textdomain": "ucn-footer",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",

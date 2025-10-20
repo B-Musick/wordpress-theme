@@ -11,6 +11,20 @@
 	"supports": {
 		"html": false
 	},
+	"attributes": {
+		"topMenuFull": {
+			"type": "string",
+			"default": "header-top-menu"
+		},
+		"topMenuMobile": {
+			"type": "string",
+			"default": "top-menu"
+		},
+		"mainMenu": {
+			"type": "string",
+			"default": "dropdown-bottom-menu"
+		}
+	},
 	"textdomain": "myheader",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",

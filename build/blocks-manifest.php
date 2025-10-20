@@ -16,6 +16,20 @@ return array(
 		'supports' => array(
 			'html' => false
 		),
+		'attributes' => array(
+			'topMenuFull' => array(
+				'type' => 'string',
+				'default' => 'header-top-menu'
+			),
+			'topMenuMobile' => array(
+				'type' => 'string',
+				'default' => 'top-menu'
+			),
+			'mainMenu' => array(
+				'type' => 'string',
+				'default' => 'dropdown-bottom-menu'
+			)
+		),
 		'textdomain' => 'myheader',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
@@ -37,6 +51,21 @@ return array(
 		),
 		'supports' => array(
 			'html' => false
+		),
+		'attributes' => array(
+			'menus' => array(
+				'type' => 'array',
+				'default' => array(
+					array(
+						'label' => 'Admissions',
+						'themeLocation' => 'footer-admissions'
+					),
+					array(
+						'label' => 'Community',
+						'themeLocation' => 'footer-community'
+					)
+				)
+			)
 		),
 		'textdomain' => 'ucn-footer',
 		'editorScript' => 'file:./index.js',

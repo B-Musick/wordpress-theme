@@ -92,10 +92,11 @@ $footer_tagline = get_field('footer_tagline', 'option');
           </ul>
         <?php endif; ?>
 
-        <div class="footer-copy mt-2">
+     
+      </div>
+         <div class="footer-copy">
           &copy; <?php echo esc_html($current_year); ?> <?php bloginfo('name'); ?>
         </div>
-      </div>
     </div>
   </div>
 </div>

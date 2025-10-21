@@ -8,7 +8,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 .wp-block-musicks-myheader {
-  background-color: #21759b;
+  background-color: #006DB7;
   color: #fff;
   padding: 2px;
 }
@@ -121,7 +121,8 @@ Custom dropdown hamburger style (bootstrap classes)
 }
 /* Dropdown items */
 .main-navigation .dropdown-menu {
-  background-color: #21759b; /* or same as your navbar */
+  background-color: #006DB7; /* or same as your navbar */
+  filter: brightness(101%);
 }
 .main-navigation .dropdown-item {
   color: white !important;

@@ -6,21 +6,28 @@
  */
 
 .footer-container {
-  background-color: #3e67b0;
+  background-color: #006DB7;
   color: #fff;
-box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
   .footer-inner {
-    justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch; // ✅ make columns equal height
     gap: 2rem;
   }
 
-  .footer-left {
-	padding: 3rem 1.5rem;
-    flex: 1 1 250px;
-	background-color: #f5f5f5;
-	color: #444;
+	.footer-left {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-self: stretch; // ✅ fill full vertical space of container
+		flex: 1 1 250px;
+		padding: 3rem 1.5rem;
+		background-color: #f5f5f5;
+		color: #444;
+		min-height: 100%; // ✅ ensure proper height fill within flex
+	
 
     .footer-logo {
       display: flex;
@@ -71,7 +78,7 @@ box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: row;
 	  justify-content: center;
-		
+	 padding: 0;
 	  li {
 		list-style: none;
 		margin: 0 1em;
@@ -88,13 +95,15 @@ box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     }
   }
 
-  .footer-right {
-	justify-content: space-between;
-	  padding: 3rem 1.5rem;
-    flex: 3 1 600px;
+    .footer-right {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    justify-content: space-between;
+    align-items: stretch; // ✅ ensures even alignment with footer-left
+    flex: 3 1 600px;
+    padding: 3rem 1.5rem;
+    gap: 3rem;
+  
 
     .footer-menu {
       h4 {
@@ -156,6 +165,11 @@ box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
         }
       }
     }
+		  .footer-copy{
+		
+		    width: 100%;
+    text-align: left;
+	  }
   }
 }
 
@@ -163,7 +177,12 @@ box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
   .footer-container {
     .footer-right {
       justify-content: right;
+	  gap: 2rem;
     }
+
+	.footer-menu {
+		flex:1;
+	}
   }
 }
 

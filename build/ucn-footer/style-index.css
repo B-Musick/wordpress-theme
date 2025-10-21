@@ -8,21 +8,27 @@
  * Replace them with your own styles or remove the file completely.
  */
 .footer-container {
-  background-color: #3e67b0;
+  background-color: #006DB7;
   color: #fff;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 .footer-container .footer-inner {
-  justify-content: space-between;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
   gap: 2rem;
 }
 .footer-container .footer-left {
-  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
   flex: 1 1 250px;
+  padding: 3rem 1.5rem;
   background-color: #f5f5f5;
   color: #444;
+  min-height: 100%;
 }
 .footer-container .footer-left .footer-logo {
   display: flex;
@@ -67,6 +73,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  padding: 0;
 }
 .footer-container .footer-left .footer-links li {
   list-style: none;
@@ -81,12 +88,13 @@
   text-decoration: underline;
 }
 .footer-container .footer-right {
-  justify-content: space-between;
-  padding: 3rem 1.5rem;
-  flex: 3 1 600px;
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  justify-content: space-between;
+  align-items: stretch;
+  flex: 3 1 600px;
+  padding: 3rem 1.5rem;
+  gap: 3rem;
 }
 .footer-container .footer-right .footer-menu h4 {
   font-size: 1.25rem;
@@ -138,9 +146,17 @@
 .footer-container .footer-right .footer-extra .footer-policies li a:hover {
   text-decoration: underline;
 }
+.footer-container .footer-right .footer-copy {
+  width: 100%;
+  text-align: left;
+}
 @media (max-width: 768px) {
   .footer-container .footer-right {
     justify-content: right;
+    gap: 2rem;
+  }
+  .footer-container .footer-menu {
+    flex: 1;
   }
 }
 

@@ -8,15 +8,21 @@
 	"icon": "smiley",
 	"description": "Footer of the website.",
 	"example": {},
-	"supports": {
-		"html": false
-	},
+	"supports": { "html": false },
 	"attributes": {
 		"menus": {
 			"type": "array",
 			"default": [
 				{ "label": "Admissions", "themeLocation": "footer-admissions" },
 				{ "label": "Community", "themeLocation": "footer-community" }
+			]
+		},
+		"policies": {
+			"type": "array",
+			"default": [
+				{ "text": "Privacy Policy", "url": "/privacy-policy" },
+				{ "text": "Terms of Service", "url": "/terms" },
+				{ "text": "Website Feedback", "url": "/feedback" }
 			]
 		}
 	},

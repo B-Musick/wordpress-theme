@@ -65,6 +65,23 @@ return array(
 						'themeLocation' => 'footer-community'
 					)
 				)
+			),
+			'policies' => array(
+				'type' => 'array',
+				'default' => array(
+					array(
+						'text' => 'Privacy Policy',
+						'url' => '/privacy-policy'
+					),
+					array(
+						'text' => 'Terms of Service',
+						'url' => '/terms'
+					),
+					array(
+						'text' => 'Website Feedback',
+						'url' => '/feedback'
+					)
+				)
 			)
 		),
 		'textdomain' => 'ucn-footer',

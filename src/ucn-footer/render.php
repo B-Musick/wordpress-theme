@@ -5,7 +5,10 @@
  * @var array $attributes
  */
 
-$menus = $attributes['menus'] ?? [];
+$menus    = $attributes['menus']    ?? [];
+$policies = $attributes['policies'] ?? [];
+
+$current_year = date('Y'); // [variable for current year]
 
 // Example ACF options (adjust field names to match your setup)
 $footer_logo    = get_field('footer_logo', 'option');
@@ -46,18 +49,18 @@ $footer_tagline = get_field('footer_tagline', 'option');
     </div>
 
     <!-- Right Column (Menus) -->
-    <div class="footer-right d-flex flex-wrap w-100 w-md-auto">
+     <div class="footer-right d-flex flex-wrap w-100 w-md-auto">
 
       <?php foreach ($menus as $menu): ?>
         <div class="footer-menu d-flex flex-column">
-          <h4><?php echo esc_html($menu['label']); ?></h4>
+          <h4><?php echo esc_html($menu['label'] ?? ''); ?></h4>
           <?php
-            if (!empty($menu['themeLocation'])) {
+            if ( ! empty($menu['themeLocation']) ) {
               wp_nav_menu([
                 'theme_location' => $menu['themeLocation'],
                 'container'      => false,
                 'menu_class'     => 'footer-stacked',
-                'fallback_cb'    => false,
+                'fallback_cb'    => false
               ]);
             }
           ?>
@@ -65,12 +68,33 @@ $footer_tagline = get_field('footer_tagline', 'option');
       <?php endforeach; ?>
 
       <div class="footer-extra ms-auto">
-        <div class="footer-tagline"><?php echo esc_html($footer_tagline ?: 'HERE YOU CAN.'); ?></div>
-        <ul class="footer-policies">
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Website Feedback</a></li>
-        </ul>
+        <div class="footer-tagline">
+          HERE YOU <span class="ms-2"> CAN.</span>
+        </div>
+
+        <?php if ( ! empty($policies) ): ?>
+          <ul class="footer-policies">
+            <?php foreach ($policies as $p):
+              $text = isset($p['text']) ? trim($p['text']) : '';
+              $url  = isset($p['url']) ? trim($p['url']) : '';
+              if ( $text === '' ) { continue; }
+            ?>
+              <li>
+                <?php if ( $url !== '' ): ?>
+                  <a href="<?php echo esc_url($url); ?>">
+                    <?php echo esc_html($text); ?>
+                  </a>
+                <?php else: ?>
+                  <?php echo esc_html($text); ?>
+                <?php endif; ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php endif; ?>
+
+        <div class="footer-copy mt-2">
+          &copy; <?php echo esc_html($current_year); ?> <?php bloginfo('name'); ?>
+        </div>
       </div>
     </div>
   </div>

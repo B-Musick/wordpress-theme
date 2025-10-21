@@ -8,7 +8,7 @@
   \***********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"ucn/ucn-footer","version":"0.1.0","title":"UCN Footer","category":"widgets","icon":"smiley","description":"Footer of the website.","example":{},"supports":{"html":false},"attributes":{"menus":{"type":"array","default":[{"label":"Admissions","themeLocation":"footer-admissions"},{"label":"Community","themeLocation":"footer-community"}]}},"textdomain":"ucn-footer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"ucn/ucn-footer","version":"0.1.0","title":"UCN Footer","category":"widgets","icon":"smiley","description":"Footer of the website.","example":{},"supports":{"html":false},"attributes":{"menus":{"type":"array","default":[{"label":"Admissions","themeLocation":"footer-admissions"},{"label":"Community","themeLocation":"footer-community"}]},"policies":{"type":"array","default":[{"text":"Privacy Policy","url":"/privacy-policy"},{"text":"Terms of Service","url":"/terms"},{"text":"Website Feedback","url":"/feedback"}]}},"textdomain":"ucn-footer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ }),
 
@@ -42,49 +42,74 @@ function Edit({
   setAttributes
 }) {
   const {
-    menus = []
+    menus = [],
+    policies = []
   } = attributes;
+
+  // --- Menus (you already had these) ---
   const updateMenu = (index, field, value) => {
-    const newMenus = [...menus];
-    newMenus[index][field] = value;
+    const next = [...menus];
+    next[index][field] = value;
     setAttributes({
-      menus: newMenus
+      menus: next
     });
   };
-  const addMenu = () => {
+  const addMenu = () => setAttributes({
+    menus: [...menus, {
+      label: "New Menu",
+      themeLocation: ""
+    }]
+  });
+  const removeMenu = index => {
+    const next = [...menus];
+    next.splice(index, 1);
     setAttributes({
-      menus: [...menus, {
-        label: "New Menu",
-        themeLocation: ""
+      menus: next
+    });
+  };
+
+  // --- Policies (NEW) ---
+  const updatePolicy = (index, field, value) => {
+    const next = [...policies];
+    next[index][field] = value;
+    setAttributes({
+      policies: next
+    });
+  };
+  const addPolicy = () => {
+    setAttributes({
+      policies: [...policies, {
+        text: "",
+        url: ""
       }]
     });
   };
-  const removeMenu = index => {
-    const newMenus = [...menus];
-    newMenus.splice(index, 1);
+  const removePolicy = index => {
+    const next = [...policies];
+    next.splice(index, 1);
     setAttributes({
-      menus: newMenus
+      policies: next
     });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Footer Menus", "ucn-theme"),
         initialOpen: true,
         children: [menus.map((menu, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           style: {
             borderBottom: "1px solid #ddd",
-            paddingBottom: "10px",
-            marginBottom: "10px"
+            paddingBottom: 10,
+            marginBottom: 10
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
             label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Menu Label", "ucn-theme"),
             value: menu.label,
-            onChange: value => updateMenu(index, "label", value)
+            onChange: v => updateMenu(index, "label", v)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
             label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Theme Location", "ucn-theme"),
             value: menu.themeLocation,
-            onChange: value => updateMenu(index, "themeLocation", value),
+            onChange: v => updateMenu(index, "themeLocation", v),
             placeholder: "e.g. footer-admissions"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
             isDestructive: true,
@@ -97,7 +122,37 @@ function Edit({
           onClick: addMenu,
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Add Menu", "ucn-theme")
         })]
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Footer Policies", "ucn-theme"),
+        initialOpen: false,
+        children: [policies.map((policy, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            borderBottom: "1px solid #ddd",
+            paddingBottom: 10,
+            marginBottom: 10
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Link Text", "ucn-theme"),
+            value: policy.text,
+            onChange: v => updatePolicy(index, "text", v),
+            placeholder: "Privacy Policy"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("URL", "ucn-theme"),
+            value: policy.url,
+            onChange: v => updatePolicy(index, "url", v),
+            placeholder: "/privacy-policy"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            isDestructive: true,
+            isSecondary: true,
+            onClick: () => removePolicy(index),
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Remove Link", "ucn-theme")
+          })]
+        }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          isPrimary: true,
+          onClick: addPolicy,
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Add Link", "ucn-theme")
+        })]
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
@@ -105,9 +160,11 @@ function Edit({
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Footer Preview", "ucn-theme")
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
-        children: menus.map((menu, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
-          children: [menu.label, " (", menu.themeLocation || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("no location", "ucn-theme"), ")"]
-        }, index))
+        children: policies.map((p, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+          children: [p.text || "—", " ", p.url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("small", {
+            children: ["(", p.url, ")"]
+          })]
+        }, i))
       })]
     })]
   });

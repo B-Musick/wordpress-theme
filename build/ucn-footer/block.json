@@ -24,6 +24,23 @@
           "themeLocation": "footer-community"
         }
       ]
+    },
+    "policies": {
+      "type": "array",
+      "default": [
+        {
+          "text": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "text": "Terms of Service",
+          "url": "/terms"
+        },
+        {
+          "text": "Website Feedback",
+          "url": "/feedback"
+        }
+      ]
     }
   },
   "textdomain": "ucn-footer",

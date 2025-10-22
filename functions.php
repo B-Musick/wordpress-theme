@@ -83,22 +83,22 @@ add_action('after_setup_theme', function () {
  * Search filter (check ucn files to see what previously had)
  */
 
-function filter_query_by_category_or_post_type($query) {
-  if (!is_admin() && $query->is_main_query()) {
+// function filter_query_by_category_or_post_type($query) {
+//   if (!is_admin() && $query->is_main_query()) {
 
-    // Category filter for 'news' or 'stories'
-    if (!empty($_GET['filter_category'])) {
-      $query->set('post_type', 'post'); // default WP post type
-      $query->set('category_name', sanitize_text_field($_GET['filter_category']));
-    }
+//     // Category filter for 'news' or 'stories'
+//     if (!empty($_GET['filter_category'])) {
+//       $query->set('post_type', 'post'); // default WP post type
+//       $query->set('category_name', sanitize_text_field($_GET['filter_category']));
+//     }
 
-    // Custom post type filter for 'faculty'
-    if (!empty($_GET['post_type']) && $_GET['post_type'] === 'faculty') {
-      $query->set('post_type', 'faculty');
-    }
-  }
-}
-add_action('pre_get_posts', 'filter_query_by_category_or_post_type');
+//     // Custom post type filter for 'faculty'
+//     if (!empty($_GET['post_type']) && $_GET['post_type'] === 'faculty') {
+//       $query->set('post_type', 'faculty');
+//     }
+//   }
+// }
+// add_action('pre_get_posts', 'filter_query_by_category_or_post_type');
 
 /**
  * Icons
@@ -107,3 +107,188 @@ function mytheme_enqueue_dashicons_frontend() {
     wp_enqueue_style( 'dashicons' );
 }
 add_action( 'wp_enqueue_scripts', 'mytheme_enqueue_dashicons_frontend' );
+
+
+
+
+/**
+ * Search filter
+ */
+
+add_filter('query_vars', function ($vars) {
+    $vars[] = 'filter-program-faculty';
+    $vars[] = 'filter-department';
+    $vars[] = 'filter-category'; // still the built-in category
+    return $vars;
+});
+
+add_action('pre_get_posts', function ($q) {
+    if (is_admin() || !$q->is_main_query() || !$q->is_search()) return;
+
+    // Helper to normalize and sanitize incoming values
+    $normalize_filter = function ($input) {
+        if (empty($input)) return [];
+        // Flatten possible nested arrays and cast everything to string
+        $flat = [];
+        foreach ((array) $input as $val) {
+            if (is_array($val)) {
+                $flat = array_merge($flat, array_map('sanitize_title', $val));
+            } else {
+                $flat[] = sanitize_title($val);
+            }
+        }
+        // Remove duplicates and blanks
+        return array_filter(array_unique($flat));
+    };
+
+    $tax_filters = [];
+
+    // Program / Faculty
+    $program_faculty = $normalize_filter($q->get('filter-program-faculty'));
+    if ($program_faculty) {
+        $tax_filters[] = [
+            'taxonomy' => 'program-faculty',
+            'field'    => 'slug',
+            'terms'    => $program_faculty,
+        ];
+    }
+
+    // Department
+    $department = $normalize_filter($q->get('filter-department'));
+    if ($department) {
+        $tax_filters[] = [
+            'taxonomy' => 'department',
+            'field'    => 'slug',
+            'terms'    => $department,
+        ];
+    }
+
+    // Built-in Categories
+    $category = $normalize_filter($q->get('filter-category'));
+    if ($category) {
+        $tax_filters[] = [
+            'taxonomy' => 'category',
+            'field'    => 'slug',
+            'terms'    => $category,
+        ];
+    }
+
+    if ($tax_filters) {
+        $q->set('tax_query', [
+            'relation' => 'AND',
+            ...$tax_filters
+        ]);
+    }
+});
+
+
+add_shortcode('search_filters', function () {
+    $current_search = get_search_query();
+
+    $selected_program_faculty = (array) get_query_var('filter-program-faculty');
+    $selected_department      = (array) get_query_var('filter-department');
+    $selected_category        = (array) get_query_var('filter-category');
+
+    ob_start(); ?>
+    <form method="get" action="<?php echo esc_url(home_url('/')); ?>" class="search-filters">
+
+        <input type="hidden" name="s" value="<?php echo esc_attr($current_search); ?>">
+
+        <!-- Program / Faculty -->
+        <fieldset class="mb-4">
+            <legend class="fw-bold h6 mb-2">Program / Faculty</legend>
+            <?php
+            $terms = get_terms(['taxonomy' => 'program-faculty', 'hide_empty' => false]);
+            foreach ($terms as $term):
+                $id = 'pf-' . esc_attr($term->slug);
+                $checked = in_array($term->slug, $selected_program_faculty, true);
+            ?>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                        name="filter-program-faculty[]"
+                        id="<?php echo $id; ?>"
+                        value="<?php echo esc_attr($term->slug); ?>"
+                        <?php checked($checked); ?>>
+                    <label class="form-check-label" for="<?php echo $id; ?>">
+                        <?php echo esc_html($term->name); ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+
+        <!-- Department -->
+        <fieldset class="mb-4">
+            <legend class="fw-bold h6 mb-2">Department</legend>
+            <?php
+            $terms = get_terms(['taxonomy' => 'department', 'hide_empty' => false]);
+            foreach ($terms as $term):
+                $id = 'dept-' . esc_attr($term->slug);
+                $checked = in_array($term->slug, $selected_department, true);
+            ?>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                        name="filter-department[]"
+                        id="<?php echo $id; ?>"
+                        value="<?php echo esc_attr($term->slug); ?>"
+                        <?php checked($checked); ?>>
+                    <label class="form-check-label" for="<?php echo $id; ?>">
+                        <?php echo esc_html($term->name); ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+
+        <!-- Built-in Categories -->
+        <fieldset class="mb-4">
+            <legend class="fw-bold h6 mb-2">Category</legend>
+            <?php
+            $terms = get_terms(['taxonomy' => 'category', 'hide_empty' => false]);
+            foreach ($terms as $term):
+                $id = 'cat-' . esc_attr($term->slug);
+                $checked = in_array($term->slug, $selected_category, true);
+            ?>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                        name="filter-category[]"
+                        id="<?php echo $id; ?>"
+                        value="<?php echo esc_attr($term->slug); ?>"
+                        <?php checked($checked); ?>>
+                    <label class="form-check-label" for="<?php echo $id; ?>">
+                        <?php echo esc_html($term->name); ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+
+        <!-- <button class="btn btn-primary" type="submit">Apply Filters</button> -->
+        <a href="<?php echo esc_url(add_query_arg(['s' => $current_search], home_url('/'))); ?>" class="btn btn-link p-0 ms-3">Clear</a>
+    </form>
+    <!-- <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.search-filters');
+  if (!form) return;
+
+  // Attach change event to all checkboxes
+  form.querySelectorAll('input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', function() {
+      form.submit(); // auto-submit on change
+    });
+  });
+});
+</script> -->
+    <?php
+    return ob_get_clean();
+});
+add_action('wp_enqueue_scripts', function() {
+  wp_add_inline_script('jquery', "
+    jQuery(function($) {
+      const form = $('.search-filters');
+      if (!form.length) return;
+      let timer;
+      form.find('input[type=\"checkbox\"]').on('change', function() {
+        clearTimeout(timer);
+        timer = setTimeout(() => form.submit(), 300);
+      });
+    });
+  ");
+});

@@ -1,6 +1,6 @@
 <?php
 if ( function_exists( 'do_blocks' ) ) {
-  echo do_blocks( '<!-- wp:template-part {"slug":"header","theme":"ucn-theme"} /-->' );
+  echo do_blocks( '<!-- wp:template-part {"slug":"header","tagName":"header","className":"site-header"} /-->' );
 }
 ?>
 <main class="container py-5">
@@ -71,5 +71,5 @@ if ( function_exists( 'do_blocks' ) ) {
 </main>
 
 <?php
-echo do_blocks('<!-- wp:template-part {"slug":"footer","theme":"ucn-theme"} /-->');
+echo do_blocks('<!-- wp:template-part {"slug":"footer","tagName":"footer","className":"site-footer"} /-->');
 ?>

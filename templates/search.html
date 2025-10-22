@@ -2,18 +2,17 @@
 
 <!-- wp:group {"tagName":"main","className":"container py-5","layout":{"type":"constrained"}} -->
 <main class="container py-5">
-  <!-- wp:heading {"level":1,"className":"mb-4"} -->
   <!-- wp:query-title {"type":"search","className":"mb-4"} /-->
-  <!-- /wp:heading -->
 
   <!-- wp:columns -->
   <div class="wp-block-columns row">
 
     <!-- Sidebar Filters -->
     <!-- wp:column {"width":"25%","className":"col-md-3 mb-4"} -->
-    
-
-      <!-- /wp:html -->
+    <div class="wp-block-column col-md-3 mb-4">
+      <!-- wp:shortcode -->
+      [search_filters]
+      <!-- /wp:shortcode -->
     </div>
     <!-- /wp:column -->
 
@@ -23,25 +22,19 @@
       <!-- wp:query {"queryId":1,"query":{"inherit":true},"tagName":"section"} -->
       <section class="wp-block-query">
         <!-- wp:post-template -->
-        <!-- wp:group {"className":"custom-search-card d-flex flex-column flex-md-row rounded shadow-sm overflow-hidden mb-4"} -->
         <article class="custom-search-card d-flex flex-column flex-md-row rounded shadow-sm overflow-hidden mb-4">
           <!-- wp:post-featured-image {"isLink":true,"sizeSlug":"medium","className":"custom-search-card-image"} /-->
-          <!-- wp:group {"className":"custom-search-card-content p-3 flex-grow-1"} -->
           <div class="custom-search-card-content p-3 flex-grow-1">
             <!-- wp:post-title {"isLink":true,"className":"h5 mb-2 text-dark text-decoration-none"} /-->
             <!-- wp:post-excerpt /-->
           </div>
-          <!-- /wp:group -->
         </article>
-        <!-- /wp:group -->
         <!-- /wp:post-template -->
 
         <!-- wp:query-pagination /-->
-
         <!-- wp:query-no-results -->
         <p>No results found. Try a different search.</p>
-<!-- wp:search {"label":"Search again","showLabel":false,"placeholder":"Search the website...","buttonText":"Search","className":"mb-5"} /-->
-
+        <!-- wp:search {"label":"Search again","showLabel":false,"placeholder":"Search the website...","buttonText":"Search","className":"mb-5"} /-->
         <!-- /wp:query-no-results -->
       </section>
       <!-- /wp:query -->
@@ -53,4 +46,4 @@
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","tagName":"footer","className":"site-footer"} /-->

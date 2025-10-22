@@ -164,3 +164,6 @@ Custom dropdown hamburger style (bootstrap classes)
 .navbar {
   padding-bottom: 0 !important;
 }
+#search-dropdown.collapsed {
+  display: none; /* or visibility:hidden; pointer-events:none; */
+}

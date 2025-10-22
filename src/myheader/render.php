@@ -49,7 +49,14 @@ $icons = [
         ?>
         <div class="ms-3">
           
-            <button type="submit" class="search-button" onclick="toggleSearchDropdown()" aria-label="Search">
+            <button
+                type="button"
+                class="search-button"
+                aria-label="Search"
+                aria-controls="search-dropdown"
+                aria-expanded="false"
+                onclick="toggleSearchDropdown()"
+                >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18e" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 
                 1.415-1.414l-3.85-3.85zm-5.242 1.156a5 5 0 1 1 
@@ -132,7 +139,25 @@ $icons = [
 <script>
 function toggleSearchDropdown() {
   const dropdown = document.getElementById('search-dropdown');
-  dropdown.classList.toggle('expanded');
+  const button = document.querySelector('.search-button');
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+
+  // toggle expanded state
+  button.setAttribute('aria-expanded', !expanded);
+
+  // show/hide dropdown
+  if (expanded) {
+    dropdown.classList.remove('expanded');
+    dropdown.classList.add('collapsed');
+    dropdown.setAttribute('aria-hidden', 'true');
+    dropdown.setAttribute('inert', ''); // blocks tab focus (modern browsers)
+  } else {
+    dropdown.classList.add('expanded');
+    dropdown.classList.remove('collapsed');
+    dropdown.removeAttribute('aria-hidden');
+    dropdown.removeAttribute('inert');
+    dropdown.querySelector('input[type="search"]').focus();
+  }
 }
 
 </script>

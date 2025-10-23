@@ -2,20 +2,20 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/myheader/block.json":
-/*!*********************************!*\
-  !*** ./src/myheader/block.json ***!
-  \*********************************/
+/***/ "./src/header/block.json":
+/*!*******************************!*\
+  !*** ./src/header/block.json ***!
+  \*******************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"ucn/myheader","version":"0.1.0","title":"My Header","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"topMenuFull":{"type":"string","default":"header-top-menu"},"topMenuMobile":{"type":"string","default":"top-menu"},"mainMenu":{"type":"string","default":"dropdown-bottom-menu"}},"textdomain":"myheader","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"ucn/header","version":"0.1.0","title":"My Header","category":"widgets","icon":"smiley","description":"Header block to be used for navigation","example":{},"attributes":{"topMenuFull":{"type":"string","default":"header-top-menu"},"topMenuMobile":{"type":"string","default":"top-menu"},"mainMenu":{"type":"string","default":"dropdown-bottom-menu"},"toolbarColor":{"type":"string","default":""},"navbarColor":{"type":"string","default":""},"toolbarTextColor":{"type":"string","default":"#444"},"navbarTextColor":{"type":"string","default":"white"},"image_id":{"type":"number"},"image_url":{"type":"string"}},"textdomain":"myheader","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ }),
 
-/***/ "./src/myheader/edit.js":
-/*!******************************!*\
-  !*** ./src/myheader/edit.js ***!
-  \******************************/
+/***/ "./src/header/edit.js":
+/*!****************************!*\
+  !*** ./src/header/edit.js ***!
+  \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -44,39 +44,119 @@ function Edit({
   const {
     topMenuFull,
     topMenuMobile,
-    mainMenu
+    mainMenu,
+    toolbarColor,
+    navbarColor,
+    toolbarTextColor,
+    navbarTextColor,
+    image_id,
+    image_url
   } = attributes;
+  // const [toolbarColor, setToolbarColor] = useState();
+  // const [navbarColor, setNavbarColor] = useState();
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Header Menu Settings", "myheader"),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Header Menu Settings", "ucn-theme"),
         initialOpen: true,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Top Menu (Full)", "myheader"),
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Top Menu (Full)", "ucn-theme"),
           value: topMenuFull,
           onChange: value => setAttributes({
             topMenuFull: value
           }),
           placeholder: "e.g. top-menu-full"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Top Menu (Mobile)", "myheader"),
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Top Menu (Mobile)", "ucn-theme"),
           value: topMenuMobile,
           onChange: value => setAttributes({
             topMenuMobile: value
           }),
           placeholder: "e.g. top-menu-mobile"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Main Menu", "myheader"),
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Main Menu", "ucn-theme"),
           value: mainMenu,
           onChange: value => setAttributes({
             mainMenu: value
           }),
           placeholder: "e.g. main-menu"
         })]
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Color Settings", "ucn-theme"),
+        initialOpen: false,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          children: "Toolbar Color"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+          color: toolbarColor,
+          title: "Toolbar Color",
+          onChange: value => setAttributes({
+            toolbarColor: value
+          }),
+          enableAlpha: true,
+          defaultValue: "#f5f5f5"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          children: "Navbar Color"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+          color: navbarColor,
+          title: "Navbar Color",
+          onChange: value => setAttributes({
+            navbarColor: value
+          }),
+          enableAlpha: true,
+          defaultValue: "#006DB7"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          children: "Toolbar Text Color"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+          color: toolbarTextColor,
+          title: "Toolbar Text Color",
+          onChange: value => setAttributes({
+            toolbarTextColor: value
+          }),
+          enableAlpha: true,
+          defaultValue: "#444"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          children: "Navbar Text Color"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+          color: navbarTextColor,
+          title: "Navbar Text Color",
+          onChange: value => setAttributes({
+            navbarTextColor: value
+          }),
+          enableAlpha: true,
+          defaultValue: "white"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Color Settings", "ucn-theme"),
+        initialOpen: false,
+        children: attributes.image_url && attributes.image_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+            src: attributes.image_url
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            className: "button-remove",
+            onClick: () => setAttributes({
+              image_url: "",
+              image_id: null
+            }),
+            children: "Remove"
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaPlaceholder, {
+          onSelect: image => {
+            setAttributes({
+              image_url: image.url,
+              image_id: image.id
+            });
+          },
+          allowedTypes: ["image"],
+          multiple: false,
+          labels: {
+            title: "CTA Image"
+          }
+        })
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
       ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
-      children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("My Header Block", "myheader"), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("small", {
+      children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("My Header Block", "ucn-theme"), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("small", {
         children: ["Top Menu (Full): ", topMenuFull || "—", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Top Menu (Mobile): ", topMenuMobile || "—", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Main Menu: ", mainMenu || "—"]
       })]
     })]
@@ -85,18 +165,18 @@ function Edit({
 
 /***/ }),
 
-/***/ "./src/myheader/index.js":
-/*!*******************************!*\
-  !*** ./src/myheader/index.js ***!
-  \*******************************/
+/***/ "./src/header/index.js":
+/*!*****************************!*\
+  !*** ./src/header/index.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/myheader/style.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/myheader/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/myheader/block.json");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/header/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/header/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/header/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -133,10 +213,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/myheader/style.scss":
-/*!*********************************!*\
-  !*** ./src/myheader/style.scss ***!
-  \*********************************/
+/***/ "./src/header/style.scss":
+/*!*******************************!*\
+  !*** ./src/header/style.scss ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -315,8 +395,8 @@ module.exports = window["ReactJSXRuntime"];
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"myheader/index": 0,
-/******/ 			"myheader/style-index": 0
+/******/ 			"header/index": 0,
+/******/ 			"header/style-index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -366,7 +446,7 @@ module.exports = window["ReactJSXRuntime"];
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["myheader/style-index"], () => (__webpack_require__("./src/myheader/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["header/style-index"], () => (__webpack_require__("./src/header/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

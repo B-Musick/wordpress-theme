@@ -12,7 +12,11 @@
 $top_menu_full   = $attributes['topMenuFull'] ?? '';
 $top_menu_mobile = $attributes['topMenuMobile'] ?? '';
 $main_menu       = $attributes['mainMenu'] ?? '';
-
+$toolbar_color   = $attributes['toolbarColor'] ?? '';
+$navbar_color    = $attributes['navbarColor'] ?? '';
+$toolbar_text_color   = $attributes['toolbarTextColor'] ?? '';
+$navbar_text_color    = $attributes['navbarTextColor'] ?? '';
+$image_id = $attributes["image_id"];
 $icons = [
   'Twitter'   => 'dashicons-twitter',
   'Facebook'  => 'dashicons-facebook',
@@ -23,15 +27,14 @@ $icons = [
 
 ?>
 
-
-<div class="top-logo-bar">
+<div class="top-toolbar" style="background-color: <?php echo $toolbar_color ?>; color: <?php echo $toolbar_text_color ?>;">
         <?php
             wp_nav_menu(array(
                 'theme_location' => $top_menu_full,
                 'container' => false,
                 'menu_class' => 'sign-in-dropdown',
                 'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto flex-row w-100 justify-content-end gap-5 flex-1 d-none d-md-flex %2$s">%3$s</ul>',
+                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto flex-row w-100 justify-content-end flex-1 d-none d-md-flex %2$s">%3$s</ul>',
                 'depth' => 2,
                 'walker' => new bootstrap_5_wp_nav_menu_walker()
             ));
@@ -42,7 +45,7 @@ $icons = [
                 'container' => false,
                 'menu_class' => 'sign-in-dropdown',
                 'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto flex-row w-100 justify-content-end gap-5 flex-1 d-md-none %2$s">%3$s</ul>',
+                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto flex-row w-100 justify-content-end flex-1 fw-bold %2$s">%3$s</ul>',
                 'depth' => 2,
                 'walker' => new bootstrap_5_wp_nav_menu_walker()
             ));
@@ -52,6 +55,7 @@ $icons = [
             <button
                 type="button"
                 class="search-button"
+                style="color: <?php echo $toolbar_text_color ?>;""
                 aria-label="Search"
                 aria-controls="search-dropdown"
                 aria-expanded="false"
@@ -66,21 +70,20 @@ $icons = [
         </div>
 </div>
 
-<nav class="navbar navbar-expand-md main-navigation d-flex">
+<nav class="navbar navbar-expand-md main-navigation d-flex" style="background-color: <?php echo $navbar_color ?> !important;color: <?php echo $navbar_text_color ?> !important;">
     <div class="d-flex justify-content-between md-w-100">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo-link">
             <?php
-                // $logo = get_field('logo', 'option');
-                $logo = true;
-                if ( $logo ) :
+                echo wp_get_attachment_image(
+                    $image_id,
+                    'full',
+                    false,
+                    [
+                        'style' => 'height:50px; width:auto; margin-left: 10px;',
+                        'class' => 'site-logo'
+                    ]
+                );
             ?>
-            <!-- Revert this to use a site option logo -->
-                <img 
-                    src="http://brendan-musick-portfolio.local/wp-content/uploads/2025/10/Screenshot-2025-10-18-at-9.54.57-AM.png" 
-                    alt="test" 
-                    style="height: 50px; width: auto;" 
-                />
-            <?php endif; ?>
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +94,7 @@ $icons = [
         
 
     </div>
-            <div class="collapse navbar-collapse" id="main-menu">
+        <div class="collapse navbar-collapse" id="main-menu" >
             <?php
             wp_nav_menu(array(
                 'theme_location' => $top_menu_mobile,
@@ -103,13 +106,13 @@ $icons = [
                 'walker' => new bootstrap_5_wp_nav_menu_walker()
             ));
             ?>
-                  <?php
+        <?php
             wp_nav_menu(array(
                 'theme_location' => $main_menu,
                 'container' => false,
                 'menu_class' => 'dropdown-bottom-items',
                 'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto flex-row w-100 justify-content-center gap-5 mb-md-0 flex-1 flex-1 d-md-none font-sm %2$s">%3$s</ul>',
+                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto flex-row w-100 justify-content-center mb-md-0 gap-3 flex-1 flex-1 d-md-none font-sm %2$s">%3$s</ul>',
                 'depth' => 2,
                 'walker' => new bootstrap_5_wp_nav_menu_walker()
             ));
@@ -160,5 +163,74 @@ function toggleSearchDropdown() {
   }
 }
 
+
+/** TODO - REFACTOR THIS OUT */
 </script>
 
+<?php
+// Generate dropdown style dynamically based on toolbar colors
+echo '<style>
+.top-toolbar .dropdown-menu,
+.navbar .dropdown-menu {
+  background-color: ' . esc_attr($toolbar_color) . ';
+  color: ' . esc_attr($toolbar_text_color) . ';
+  filter: brightness(1.05);
+  border: none;
+}
+
+.top-toolbar .dropdown-menu a,
+.navbar .dropdown-menu a {
+  color: ' . esc_attr($toolbar_text_color) . ';
+}
+
+.top-toolbar .dropdown-menu a:hover,
+.navbar .dropdown-menu a:hover {
+  filter: brightness(1.1);
+}
+</style>';
+?>
+
+<?php
+echo '<style>
+/* === Navbar color matching === */
+
+/* Main navbar */
+.navbar.main-navigation {
+  background-color: ' . esc_attr($navbar_color) . ';
+  color: ' . esc_attr($navbar_text_color) . ';
+}
+
+/* Navbar links */
+.navbar.main-navigation .nav-link {
+  color: ' . esc_attr($navbar_text_color) . ';
+}
+
+/* Hover & active link states */
+.navbar.main-navigation .nav-link:hover,
+.navbar.main-navigation .nav-link:focus,
+.navbar.main-navigation .current-menu-item > .nav-link {
+  filter: brightness(1.1);
+  color: ' . esc_attr($navbar_text_color) . ';
+}
+
+/* Dropdown menus inside navbar */
+.navbar.main-navigation .dropdown-menu {
+  background-color: ' . esc_attr($navbar_color) . ';
+  color: ' . esc_attr($navbar_text_color) . ';
+  filter: brightness(1.05);
+  border: none;
+}
+
+/* Dropdown links */
+.navbar.main-navigation .dropdown-menu a {
+  color: ' . esc_attr($navbar_text_color) . ';
+}
+
+/* Dropdown hover states */
+.navbar.main-navigation .dropdown-menu a:hover,
+.navbar.main-navigation .dropdown-menu a:focus {
+  filter: brightness(1.1);
+  color: rgb(140,200,197);
+}
+</style>';
+?>

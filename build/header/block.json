@@ -1,16 +1,13 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "ucn/myheader",
+  "name": "ucn/header",
   "version": "0.1.0",
   "title": "My Header",
   "category": "widgets",
   "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "Header block to be used for navigation",
   "example": {},
-  "supports": {
-    "html": false
-  },
   "attributes": {
     "topMenuFull": {
       "type": "string",
@@ -23,6 +20,28 @@
     "mainMenu": {
       "type": "string",
       "default": "dropdown-bottom-menu"
+    },
+    "toolbarColor": {
+      "type": "string",
+      "default": ""
+    },
+    "navbarColor": {
+      "type": "string",
+      "default": ""
+    },
+    "toolbarTextColor": {
+      "type": "string",
+      "default": "#444"
+    },
+    "navbarTextColor": {
+      "type": "string",
+      "default": "white"
+    },
+    "image_id": {
+      "type": "number"
+    },
+    "image_url": {
+      "type": "string"
     }
   },
   "textdomain": "myheader",

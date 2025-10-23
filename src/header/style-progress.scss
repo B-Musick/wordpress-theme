@@ -5,31 +5,32 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-musicks-myheader {
-	background-color: #006DB7;
-	color: #fff;
-	padding: 2px;
-}
-.top-logo-bar {
+.top-toolbar {
     padding: 0.1em;
-    background-color: #f5f5f5;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
-#menu-top-menu {
-	justify-content: end;
-    display: flex;
-    width: 100%;
-	gap: 1rem;
-}
-/* Style for the main navigation */
-.main-navigation {
-    background-color: rgb(48, 109, 178); /* or any background */
+.navbar {
+  padding: 0;
 }
 
-/* Top level menu */
+#menu-top-menu {
+	justify-content: end;
+  display: flex;
+  width: 100%;
+	gap: 1rem;
+}
+
+.main-navigation {
+  padding: 0 !important;
+  margin: 0;
+  // align-items: center;
+  // height: 70px;
+//   min-height: 70px;;
+}
+
 .main-navigation .menu {
     list-style: none;
     margin: 0;
@@ -46,8 +47,7 @@
 /* Top level links */
 .main-navigation .menu > li > a {
     text-decoration: none;
-    color: #333;
-    padding: 10px 15px;
+    padding: 10px 25px;
     display: block;
 }
 
@@ -58,7 +58,6 @@
     top: 100%; /* directly underneath the parent */
     left: 0;
     list-style: none;
-    background: #fff;
     padding: 10px 0;
     margin: 0;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -74,7 +73,6 @@
 /* Submenu links */
 .main-navigation .menu ul li a {
     padding: 10px 15px;
-    color: #333;
     display: block;
 }
 .sign-in-dropdown {
@@ -83,13 +81,6 @@
 /* Show submenu on hover */
 .main-navigation .menu > li:hover > ul {
     display: block;
-}
-
-/* Optional: hover effects */
-.main-navigation .menu > li > a:hover,
-.main-navigation .menu ul li a:hover {
-    background-color: #eee;
-    height: 100%;
 }
 
 .dropdown-bottom-items {
@@ -101,6 +92,15 @@
 	}
 }
 
+.dropdown-menu:has(.dropdown-item) {
+  // Inner dropdown item (
+//   background-color: #0065b3;
+  padding: 1rem;
+}
+
+.dropdown-item:hover {
+  filter: brightness(90%) !important;
+}
 
 @media (max-width: 768px) {
   .md-w-100 {
@@ -119,35 +119,18 @@
   margin: 6px 0;
 }
 
-/*****
-Custom dropdown hamburger style (bootstrap classes)
-*****/
-/* Top-level menu items */
-.main-navigation .nav-link {
-    color: white;
-  }
-  
-  /* Active and hover states */
-  .main-navigation .nav-link:hover,
-  .main-navigation .nav-link.active {
-    color: #ddd !important;
-  }
   
   /* Dropdown items */
   .main-navigation .dropdown-menu {
-    background-color: #006DB7; /* or same as your navbar */
 	filter: brightness(101%);
   }
   
   .main-navigation .dropdown-item {
-    color: white !important;
     padding: 10px 20px;
   }
   
   .dropdown-item:hover {
-    background-color: #21759b;
     border-radius: 5px;
-    color: #444 !important;
 	
   }
   .dropdown-menu {
@@ -159,7 +142,7 @@ Custom dropdown hamburger style (bootstrap classes)
 }
 
 .depth_0 {
-    background-color: #21759b;
+    // background-color: #21759b;
     padding: 0;
 }
 
@@ -176,7 +159,6 @@ Custom dropdown hamburger style (bootstrap classes)
     border: none;
     cursor: pointer;
     padding: 0.3em;
-    color: #444;
     display: flex;
     height: 100%;
     align-items: center;
@@ -189,4 +171,41 @@ Custom dropdown hamburger style (bootstrap classes)
 
 #search-dropdown.collapsed {
   display: none; /* or visibility:hidden; pointer-events:none; */
+}
+
+/* === Menu color and hover brightness === */
+
+/* Dropdown base slightly lighter */
+.navbar.main-navigation .dropdown-menu {
+  filter: brightness(1.05);
+  border: none;
+}
+
+/* All menu links (main + dropdown) */
+.navbar.main-navigation .nav-link,
+.navbar.main-navigation .dropdown-menu a {
+  transition: filter 0.2s ease, color 0.2s ease;
+}
+
+/* Hover and focus states – dim color by 10%, keep same base color */
+.navbar.main-navigation .nav-link:hover,
+.navbar.main-navigation .nav-link:focus,
+.navbar.main-navigation .dropdown-menu a:hover,
+.navbar.main-navigation .dropdown-menu a:focus,
+.nav-link:hover,
+.dropdown-toggle:hover {
+  filter: brightness(0.2); /* slightly darker (90% of original) */
+  background-color: #44444411; /* keeps original color, no white overlay */
+//   color: ; /* keeps text consistent */
+  transition: filter 0.2s ease;
+  color: green;
+}
+
+.top-toolbar > .navbar-nav > .menu-item:hover {
+    color: blue !important;
+}
+.main-navigation #main-menu .navbar-nav > .menu-item > a:hover,
+.main-navigation #main-menu .navbar-nav > .menu-item:hover > a {
+  color: green !important;
+  filter: brightness(0.9);
 }

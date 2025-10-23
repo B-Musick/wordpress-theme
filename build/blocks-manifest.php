@@ -1,20 +1,17 @@
 <?php
 // This file is generated. Do not modify it manually.
 return array(
-	'myheader' => array(
+	'header' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'ucn/myheader',
+		'name' => 'ucn/header',
 		'version' => '0.1.0',
 		'title' => 'My Header',
 		'category' => 'widgets',
 		'icon' => 'smiley',
-		'description' => 'Example block scaffolded with Create Block tool.',
+		'description' => 'Header block to be used for navigation',
 		'example' => array(
 			
-		),
-		'supports' => array(
-			'html' => false
 		),
 		'attributes' => array(
 			'topMenuFull' => array(
@@ -28,6 +25,28 @@ return array(
 			'mainMenu' => array(
 				'type' => 'string',
 				'default' => 'dropdown-bottom-menu'
+			),
+			'toolbarColor' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'navbarColor' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'toolbarTextColor' => array(
+				'type' => 'string',
+				'default' => '#444'
+			),
+			'navbarTextColor' => array(
+				'type' => 'string',
+				'default' => 'white'
+			),
+			'image_id' => array(
+				'type' => 'number'
+			),
+			'image_url' => array(
+				'type' => 'string'
 			)
 		),
 		'textdomain' => 'myheader',
